@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function index(Post $post)//インポートしたPostをインスタンス化して$postとして使用。
     {
-        return view('posts/index')->with(['posts' => $post->getPaginateByLimit(1)]);  
+        return view('posts/index')->with(['posts' => $post->getPaginateByLimit(5)]);  
        //blade内で使う変数'posts'と設定。'posts'の中身にgetを使いい、インスタンス化した$postを代入。
     }
     
@@ -43,6 +43,12 @@ class PostController extends Controller
         $post->fill($input_post)->save();
     
         return redirect('/posts/' . $post->id);
+    }
+    
+    public function delete(Post $post)
+    {
+        $post->delete();
+        return redirect('/');
     }
     
     }
